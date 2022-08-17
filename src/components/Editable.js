@@ -16,6 +16,7 @@ const Editable = ({
           <Form.Control
             className="text-center"
             type="number"
+            min={0}
             name="priority"
             size="sm"
             required
@@ -57,8 +58,9 @@ const Editable = ({
         <Form.Group controlId="formBasicEmail">
           <Form.Control
             className="text-center"
-            type="text"
+            type="number"
             name="phoneNo"
+            min={0}
             size="sm"
             required
             placeholder="Enter the phoneNo..."
@@ -71,7 +73,7 @@ const Editable = ({
         <Form.Group controlId="formBasicEmail">
           <Form.Control
             className="text-center"
-            type="text"
+            type="email"
             name="email"
             size="sm"
             required

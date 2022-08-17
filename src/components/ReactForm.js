@@ -173,6 +173,7 @@ const ReactForm = () => {
               className="m-1"
               type="number"
               name="priority"
+              min={0}
               required
               placeholder="Enter the priority..."
               onChange={handleAddFormChange}
@@ -189,7 +190,7 @@ const ReactForm = () => {
             />
             <Form.Control
               className="m-1"
-              type="text"
+              type="email"
               name="email"
               required
               placeholder="Enter the email..."
@@ -198,7 +199,8 @@ const ReactForm = () => {
             />
             <Form.Control
               className="m-1"
-              type="text"
+              type="number"
+              min={0}
               name="phoneNo"
               required
               placeholder="Enter the phoneNo..."
