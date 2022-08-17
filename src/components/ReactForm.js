@@ -4,11 +4,10 @@ import { Table, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 // uuid
 import { v4 as uuidv4 } from "uuid";
-// icons
-import { FiEdit2 } from "react-icons/fi";
-import { TiDeleteOutline } from "react-icons/ti";
 // fake data
 import jsonData from "../mock-data.json";
+// components
+import ReadOnly from "./ReadOnly";
 
 const ReactForm = () => {
   const [data, setData] = useState(jsonData);
@@ -67,21 +66,7 @@ const ReactForm = () => {
         </thead>
         <tbody className="text-center">
           {data.map((item) => (
-            <tr key={item.id}>
-              {/* <td>{item.priority}</td> */}
-              <td>{item.fullName}</td>
-              <td>{item.email}</td>
-              <td>{item.phoneNo}</td>
-              <td>{item.address}</td>
-              <td>
-                <span className="text-warning">
-                  <FiEdit2 />
-                </span>
-                <span className="text-danger">
-                  <TiDeleteOutline />
-                </span>
-              </td>
-            </tr>
+            <ReadOnly key={item.id} data={item} />
           ))}
         </tbody>
       </Table>
