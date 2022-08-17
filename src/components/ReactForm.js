@@ -1,105 +1,164 @@
-import React, { useRef, useState } from "react";
-// bootstrap
-import { Table, Button } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+// bootstrap components
+import { Button, Table } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 // uuid
 import { v4 as uuidv4 } from "uuid";
-// fake data
-import jsonData from "../mock-data.json";
 // components
 import ReadOnly from "./ReadOnly";
 import Editable from "./Editable";
 
 const ReactForm = () => {
-  const [data, setData] = useState(jsonData);
-  const [editData, setEditData] = useState(null);
   // refs
   const nameVal = useRef();
   const emailVal = useRef();
-  const phoneNoVal = useRef();
   const addressVal = useRef();
+  const phoneNoVal = useRef();
   // states
+  const [contacts, setContacts] = useState([]);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
     address: "",
     phoneNo: "",
     email: "",
   });
-  const [inputRefs, setInputRefs] = useState([
-    nameVal,
-    emailVal,
-    phoneNoVal,
-    addressVal,
-  ]);
-  // onChange handler of add new data
-  const addFormHandle = (e) => {
+  const [editFormData, setEditFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNo: "",
+    email: "",
+  });
+
+  const [editContactId, setEditContactId] = useState(null);
+  // onchange handler of inputs
+  const handleAddFormChange = (e) => {
+    e.preventDefault();
     setAddFormData({ ...addFormData, [e.target.name]: e.target.value });
   };
-  // submit handler of adding new data
+  // edit forms
+  const handleEditFormChange = (e) => {
+    e.preventDefault();
+    setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
+  };
+  // add new value to the table
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
-    const enteredData = {
+    const newContact = {
       id: uuidv4(),
       fullName: addFormData.fullName,
       address: addFormData.address,
       phoneNo: addFormData.phoneNo,
       email: addFormData.email,
     };
-    const newVal = [...data, enteredData];
-    setData(newVal);
-    // clear inputs after submission
-    inputRefs.forEach((item) => {
-      item.current.value = "";
-    });
+    const newContacts = [...contacts, newContact];
+    setContacts(newContacts);
+    const newVal = [...contacts, newContact];
+    setContacts(newVal);
+    // clear inputs
+    // --------------------
+    nameVal.current.value = "";
+    emailVal.current.value = "";
+    addressVal.current.value = "";
+    phoneNoVal.current.value = "";
   };
-  // edit click handle
-  const editClickHandle = (e, data) => {
-    console.log(data);
-    // e.preventDefault();
-    setEditData(data.id);
+  // submit edited forms
+  const handleEditFormSubmit = (e) => {
+    e.preventDefault();
+
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNo: editFormData.phoneNo,
+      email: editFormData.email,
+    };
+
+    const newContacts = [...contacts];
+    const index = contacts.findIndex((contact) => contact.id === editContactId);
+    newContacts[index] = editedContact;
+    setContacts(newContacts);
+    setEditContactId(null);
   };
+  // edit button
+  const handleEditClick = (e, contacts) => {
+    e.preventDefault();
+    setEditContactId(contacts.id);
+
+    const formValues = {
+      fullName: contacts.fullName,
+      address: contacts.address,
+      phoneNo: contacts.phoneNo,
+      email: contacts.email,
+    };
+    setEditFormData(formValues);
+  };
+
+  // cancel button
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+  // delete
+  const handleDeleteClick = (contactId) => {
+    const newContacts = [...contacts];
+    const index = contacts.findIndex((contact) => contact.id === contactId);
+    newContacts.splice(index, 1);
+    setContacts(newContacts);
+  };
+  // log data per each change
+  useEffect(() => {
+    console.log(contacts);
+  }, [contacts]);
 
   return (
     <>
-      <form>
-        <Table striped bordered hover variant="dark" size="sm" responsive>
-          <thead className="text-center">
-            <tr>
-              {/* <th width="1">Priority</th> */}
-              <th>Name</th>
-              <th>Email</th>
-              <th>PhoneNo</th>
-              <th>Address</th>
-              <th width="1">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {data.map((item) => (
-              <React.Fragment key={item.id}>
-                {editData === item.id ? (
-                  <Editable />
-                ) : (
-                  <ReadOnly data={item} editClickHandle={editClickHandle} />
-                )}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </Table>
+      <form onSubmit={handleEditFormSubmit}>
+        {contacts.length > 0 && (
+          <Table striped bordered hover variant="dark" responsive>
+            <thead>
+              <tr className="text-center">
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th width="1">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts.map((contact) => (
+                <React.Fragment key={contact.id}>
+                  {editContactId === contact.id ? (
+                    <Editable
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
+                  ) : (
+                    <ReadOnly
+                      contact={contact}
+                      handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </form>
-      {/* Add new data */}
+      {/* add new data */}
       <form
         onSubmit={handleAddFormSubmit}
         className="d-flex justify-content-center"
       >
         <div className="mt-5">
-          <Form.Group controlId="addFormData">
+          <Form.Group controlId="formBasicEmail">
             <Form.Control
               className="m-1"
               type="text"
               name="fullName"
               required
               placeholder="Enter the name..."
-              onChange={addFormHandle}
+              onChange={handleAddFormChange}
               ref={nameVal}
             />
             <Form.Control
@@ -108,7 +167,7 @@ const ReactForm = () => {
               name="email"
               required
               placeholder="Enter the email..."
-              onChange={addFormHandle}
+              onChange={handleAddFormChange}
               ref={emailVal}
             />
             <Form.Control
@@ -117,7 +176,7 @@ const ReactForm = () => {
               name="phoneNo"
               required
               placeholder="Enter the phoneNo..."
-              onChange={addFormHandle}
+              onChange={handleAddFormChange}
               ref={phoneNoVal}
             />
             <Form.Control
@@ -126,7 +185,7 @@ const ReactForm = () => {
               name="address"
               required
               placeholder="Enter the address..."
-              onChange={addFormHandle}
+              onChange={handleAddFormChange}
               ref={addressVal}
             />
           </Form.Group>

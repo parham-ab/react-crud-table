@@ -1,24 +1,28 @@
+import React from "react";
 // icons
-import { FiEdit2 } from "react-icons/fi";
-import { TiDeleteOutline } from "react-icons/ti";
+import { MdEdit, MdDelete } from "react-icons/md";
 
-const ReadOnly = ({ data, editClickHandle }) => {
+const ReadOnly = ({ contact, handleEditClick, handleDeleteClick }) => {
   return (
-    <tr key={data.id}>
-      {/* <td>{data.priority}</td> */}
-      <td>{data.fullName}</td>
-      <td>{data.email}</td>
-      <td>{data.phoneNo}</td>
-      <td>{data.address}</td>
+    <tr className="text-center">
+      <td>{contact.fullName}</td>
+      <td>{contact.address}</td>
+      <td>{contact.phoneNo}</td>
+      <td>{contact.email}</td>
       <td>
         <span
+          type="button"
+          onClick={(e) => handleEditClick(e, contact)}
           className="text-warning"
-          onClick={(e) => editClickHandle(e, data)}
         >
-          <FiEdit2 />
+          <MdEdit />
         </span>
-        <span className="text-danger">
-          <TiDeleteOutline />
+        <span
+          type="button"
+          onClick={() => handleDeleteClick(contact.id)}
+          className="text-danger"
+        >
+          <MdDelete />
         </span>
       </td>
     </tr>

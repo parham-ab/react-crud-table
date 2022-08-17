@@ -1,72 +1,76 @@
-// bootstrap
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
 // icons
-import { BiSave } from "react-icons/bi";
-import { MdNotInterested } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 
-const Editable = () => {
+const Editable = ({
+  handleEditFormChange,
+  editFormData,
+  handleCancelClick,
+}) => {
   return (
-    <>
-      <tr>
-        {/* <td>{item.priority}</td> */}
-        <td>
+    <tr>
+      <td>
+        <Form.Group controlId="formBasicEmail">
           <Form.Control
-            className="m-1 text-center m-auto "
+            className="text-center"
             type="text"
             name="fullName"
             required
             placeholder="Enter the name..."
-            size="sm"
-            //   onChange={addFormHandle}
-            //   ref={nameVal}
+            value={editFormData.fullName}
+            onChange={handleEditFormChange}
           />
-        </td>
-        <td>
+        </Form.Group>
+      </td>
+      <td>
+        <Form.Group controlId="formBasicEmail">
           <Form.Control
-            className="m-1 text-center m-auto"
+            className="text-center"
+            type="text"
+            name="address"
+            required
+            placeholder="Enter the address..."
+            value={editFormData.address}
+            onChange={handleEditFormChange}
+          />
+        </Form.Group>
+      </td>
+      <td>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control
+            className="text-center"
+            type="text"
+            name="phoneNo"
+            required
+            placeholder="Enter the phoneNo..."
+            value={editFormData.phoneNo}
+            onChange={handleEditFormChange}
+          />
+        </Form.Group>
+      </td>
+      <td>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control
+            className="text-center"
             type="text"
             name="email"
             required
             placeholder="Enter the email..."
-            size="sm"
-            //   onChange={addFormHandle}
-            //   ref={nameVal}
+            value={editFormData.email}
+            onChange={handleEditFormChange}
           />
-        </td>
-        <td>
-          <Form.Control
-            className="m-1 text-center m-auto"
-            type="text"
-            name="phoneNo"
-            required
-            placeholder="Enter the PhoneNo..."
-            size="sm"
-            //   onChange={addFormHandle}
-            //   ref={nameVal}
-          />
-        </td>
-        <td>
-          <Form.Control
-            className="m-1 text-center m-auto"
-            type="text"
-            name="address"
-            required
-            placeholder="Enter the Address..."
-            size="sm"
-            //   onChange={addFormHandle}
-            //   ref={nameVal}
-          />
-        </td>
-        <td>
-          <span className="text-info">
-            <BiSave />
-          </span>
-          <span className="text-danger">
-            <MdNotInterested />
-          </span>
-        </td>
-      </tr>
-    </>
+        </Form.Group>
+      </td>
+      <td>
+        <button className="text-info" style={{ background: "transparent" }}>
+          <FaSave type="submit" />
+        </button>
+        <span className="text-danger" type="button" onClick={handleCancelClick}>
+          <MdCancel />
+        </span>
+      </td>
+    </tr>
   );
 };
 
