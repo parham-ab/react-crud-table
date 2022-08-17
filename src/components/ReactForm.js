@@ -11,6 +11,22 @@ import jsonData from "../mock-data.json";
 
 const ReactForm = () => {
   const [data, setData] = useState(jsonData);
+  // states
+  const [addFormData, setAddFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNo: "",
+    email: "",
+  });
+  // onChange handler of add new data
+  const addFormHandle = (e) => {
+    setAddFormData({ ...addFormData, [e.target.name]: e.target.value });
+  };
+  // submit handler of adding new data
+  const handleAddFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(addFormData);
+  };
 
   return (
     <>
@@ -19,9 +35,9 @@ const ReactForm = () => {
           <tr>
             <th width="1">Priority</th>
             <th>Name</th>
-            <th>Address</th>
-            <th>Phone Number</th>
             <th>Email</th>
+            <th>PhoneNo</th>
+            <th>Address</th>
             <th width="1">Actions</th>
           </tr>
         </thead>
@@ -30,9 +46,9 @@ const ReactForm = () => {
             <tr key={item.id}>
               <td>{item.priority}</td>
               <td>{item.name}</td>
-              <td>{item.address}</td>
-              <td>{item.phoneNo}</td>
               <td>{item.email}</td>
+              <td>{item.phoneNo}</td>
+              <td>{item.address}</td>
               <td>
                 <span className="text-warning">
                   <FiEdit2 />
@@ -45,19 +61,21 @@ const ReactForm = () => {
           ))}
         </tbody>
       </Table>
-
+      {/* Add new data */}
       <form
-        // onSubmit={handleAddFormSubmit}
+        onSubmit={handleAddFormSubmit}
         className="d-flex justify-content-center"
       >
         <div className="mt-5">
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="addFormData">
             <Form.Control
               className="m-1"
               type="text"
               name="fullName"
               required
               placeholder="Enter the name..."
+              value={addFormData.fullName}
+              onChange={addFormHandle}
             />
             <Form.Control
               className="m-1"
@@ -65,6 +83,8 @@ const ReactForm = () => {
               name="email"
               required
               placeholder="Enter the email..."
+              value={addFormData.email}
+              onChange={addFormHandle}
             />
             <Form.Control
               className="m-1"
@@ -72,6 +92,8 @@ const ReactForm = () => {
               name="phoneNo"
               required
               placeholder="Enter the phoneNo..."
+              value={addFormData.phoneNo}
+              onChange={addFormHandle}
             />
             <Form.Control
               className="m-1"
@@ -79,6 +101,8 @@ const ReactForm = () => {
               name="address"
               required
               placeholder="Enter the address..."
+              value={addFormData.address}
+              onChange={addFormHandle}
             />
           </Form.Group>
           <Button type="submit" size="sm" className="m-1">
