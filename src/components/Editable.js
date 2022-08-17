@@ -1,3 +1,4 @@
+// bootstrap
 import { Form } from "react-bootstrap";
 // icons
 import { FaSave } from "react-icons/fa";
@@ -16,6 +17,7 @@ const Editable = ({
             className="text-center"
             type="text"
             name="fullName"
+            size="sm"
             required
             placeholder="Enter the name..."
             value={editFormData.fullName}
@@ -29,6 +31,7 @@ const Editable = ({
             className="text-center"
             type="text"
             name="address"
+            size="sm"
             required
             placeholder="Enter the address..."
             value={editFormData.address}
@@ -42,6 +45,7 @@ const Editable = ({
             className="text-center"
             type="text"
             name="phoneNo"
+            size="sm"
             required
             placeholder="Enter the phoneNo..."
             value={editFormData.phoneNo}
@@ -55,6 +59,7 @@ const Editable = ({
             className="text-center"
             type="text"
             name="email"
+            size="sm"
             required
             placeholder="Enter the email..."
             value={editFormData.email}

@@ -1,25 +1,25 @@
-import React from "react";
 // icons
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { FiEdit2 } from "react-icons/fi";
 
-const ReadOnly = ({ contact, handleEditClick, handleDeleteClick }) => {
+const ReadOnly = ({ data, handleEditClick, handleDeleteClick }) => {
   return (
     <tr className="text-center">
-      <td>{contact.fullName}</td>
-      <td>{contact.address}</td>
-      <td>{contact.phoneNo}</td>
-      <td>{contact.email}</td>
+      <td>{data.fullName}</td>
+      <td>{data.address}</td>
+      <td>{data.phoneNo}</td>
+      <td>{data.email}</td>
       <td>
         <span
           type="button"
-          onClick={(e) => handleEditClick(e, contact)}
+          onClick={(e) => handleEditClick(e, data)}
           className="text-warning"
         >
-          <MdEdit />
+          <FiEdit2 />
         </span>
         <span
           type="button"
-          onClick={() => handleDeleteClick(contact.id)}
+          onClick={() => handleDeleteClick(data.id)}
           className="text-danger"
         >
           <MdDelete />

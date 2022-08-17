@@ -15,7 +15,7 @@ const ReactForm = () => {
   const addressVal = useRef();
   const phoneNoVal = useRef();
   // states
-  const [contacts, setContacts] = useState([]);
+  const [data, setData] = useState([]);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
     address: "",
@@ -28,8 +28,14 @@ const ReactForm = () => {
     phoneNo: "",
     email: "",
   });
+  const [refVals, setRefVals] = useState([
+    nameVal,
+    emailVal,
+    addressVal,
+    phoneNoVal,
+  ]);
 
-  const [editContactId, setEditContactId] = useState(null);
+  const [editDataId, setEditDataId] = useState(null);
   // onchange handler of inputs
   const handleAddFormChange = (e) => {
     e.preventDefault();
@@ -50,69 +56,65 @@ const ReactForm = () => {
       phoneNo: addFormData.phoneNo,
       email: addFormData.email,
     };
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
-    const newVal = [...contacts, newContact];
-    setContacts(newVal);
+    const newData = [...data, newContact];
+    setData(newData);
+    const newVal = [...data, newContact];
+    setData(newVal);
     // clear inputs
-    // --------------------
-    nameVal.current.value = "";
-    emailVal.current.value = "";
-    addressVal.current.value = "";
-    phoneNoVal.current.value = "";
+    refVals.forEach((items) => {
+      items.current.value = "";
+    });
   };
   // submit edited forms
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-
-    const editedContact = {
-      id: editContactId,
+    const editedData = {
+      id: editDataId,
       fullName: editFormData.fullName,
       address: editFormData.address,
       phoneNo: editFormData.phoneNo,
       email: editFormData.email,
     };
-
-    const newContacts = [...contacts];
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
-    newContacts[index] = editedContact;
-    setContacts(newContacts);
-    setEditContactId(null);
+    const newData = [...data];
+    const index = data.findIndex((item) => item.id === editDataId);
+    newData[index] = editedData;
+    setData(newData);
+    setEditDataId(null);
   };
   // edit button
-  const handleEditClick = (e, contacts) => {
+  const handleEditClick = (e, data) => {
     e.preventDefault();
-    setEditContactId(contacts.id);
+    setEditDataId(data.id);
 
     const formValues = {
-      fullName: contacts.fullName,
-      address: contacts.address,
-      phoneNo: contacts.phoneNo,
-      email: contacts.email,
+      fullName: data.fullName,
+      address: data.address,
+      phoneNo: data.phoneNo,
+      email: data.email,
     };
     setEditFormData(formValues);
   };
-
   // cancel button
   const handleCancelClick = () => {
-    setEditContactId(null);
+    setEditDataId(null);
   };
   // delete
   const handleDeleteClick = (contactId) => {
-    const newContacts = [...contacts];
-    const index = contacts.findIndex((contact) => contact.id === contactId);
-    newContacts.splice(index, 1);
-    setContacts(newContacts);
+    const newData = [...data];
+    const index = data.findIndex((contact) => contact.id === contactId);
+    newData.splice(index, 1);
+    setData(newData);
+    // localStorage.setItem('crud-table-data',)
   };
   // log data per each change
   useEffect(() => {
-    console.log(contacts);
-  }, [contacts]);
+    console.log(data);
+  }, [data]);
 
   return (
     <>
       <form onSubmit={handleEditFormSubmit}>
-        {contacts.length > 0 && (
+        {data.length > 0 && (
           <Table striped bordered hover variant="dark" responsive>
             <thead>
               <tr className="text-center">
@@ -124,9 +126,9 @@ const ReactForm = () => {
               </tr>
             </thead>
             <tbody>
-              {contacts.map((contact) => (
-                <React.Fragment key={contact.id}>
-                  {editContactId === contact.id ? (
+              {data.map((item) => (
+                <React.Fragment key={item.id}>
+                  {editDataId === item.id ? (
                     <Editable
                       editFormData={editFormData}
                       handleEditFormChange={handleEditFormChange}
@@ -134,7 +136,7 @@ const ReactForm = () => {
                     />
                   ) : (
                     <ReadOnly
-                      contact={contact}
+                      data={item}
                       handleEditClick={handleEditClick}
                       handleDeleteClick={handleDeleteClick}
                     />
