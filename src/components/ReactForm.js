@@ -116,9 +116,14 @@ const ReactForm = () => {
   useEffect(() => {
     const savedData = localStorage.getItem("crud-table-data");
     const parsedData = JSON.parse(savedData);
-    console.log(parsedData);
     setData(parsedData);
   }, []);
+  // reorder tables based on priority
+  const [reorderedData, setReOrderedData] = useState([]);
+  useEffect(() => {
+    const sortedData = data.sort((a, b) => a.priority - b.priority);
+    setReOrderedData(sortedData);
+  }, [data]);
 
   return (
     <>
@@ -136,7 +141,7 @@ const ReactForm = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
+              {reorderedData.map((item) => (
                 <React.Fragment key={item.id}>
                   {editDataId === item.id ? (
                     <Editable
