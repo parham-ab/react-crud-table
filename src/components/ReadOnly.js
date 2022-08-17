@@ -5,6 +5,7 @@ import { FiEdit2 } from "react-icons/fi";
 const ReadOnly = ({ data, handleEditClick, handleDeleteClick }) => {
   return (
     <tr className="text-center">
+      <td>{data.priority}</td>
       <td>{data.fullName}</td>
       <td>{data.address}</td>
       <td>{data.phoneNo}</td>

@@ -10,6 +10,7 @@ import Editable from "./Editable";
 
 const ReactForm = () => {
   // refs
+  const priorityVal = useRef();
   const nameVal = useRef();
   const emailVal = useRef();
   const addressVal = useRef();
@@ -17,18 +18,21 @@ const ReactForm = () => {
   // states
   const [data, setData] = useState([]);
   const [addFormData, setAddFormData] = useState({
+    priority: "",
     fullName: "",
     address: "",
     phoneNo: "",
     email: "",
   });
   const [editFormData, setEditFormData] = useState({
+    priority: "",
     fullName: "",
     address: "",
     phoneNo: "",
     email: "",
   });
   const [refVals, setRefVals] = useState([
+    priorityVal,
     nameVal,
     emailVal,
     addressVal,
@@ -51,6 +55,7 @@ const ReactForm = () => {
     e.preventDefault();
     const newContact = {
       id: uuidv4(),
+      priority: addFormData.priority,
       fullName: addFormData.fullName,
       address: addFormData.address,
       phoneNo: addFormData.phoneNo,
@@ -70,6 +75,7 @@ const ReactForm = () => {
     e.preventDefault();
     const editedData = {
       id: editDataId,
+      priority: editFormData.priority,
       fullName: editFormData.fullName,
       address: editFormData.address,
       phoneNo: editFormData.phoneNo,
@@ -87,6 +93,7 @@ const ReactForm = () => {
     setEditDataId(data.id);
 
     const formValues = {
+      priority: data.priority,
       fullName: data.fullName,
       address: data.address,
       phoneNo: data.phoneNo,
@@ -118,6 +125,7 @@ const ReactForm = () => {
           <Table striped bordered hover variant="dark" responsive>
             <thead>
               <tr className="text-center">
+                <th width="1">Priority</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Phone Number</th>
@@ -154,6 +162,15 @@ const ReactForm = () => {
       >
         <div className="mt-5">
           <Form.Group controlId="formBasicEmail">
+            <Form.Control
+              className="m-1"
+              type="number"
+              name="priority"
+              required
+              placeholder="Enter the Priority..."
+              onChange={handleAddFormChange}
+              ref={priorityVal}
+            />
             <Form.Control
               className="m-1"
               type="text"

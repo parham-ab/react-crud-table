@@ -15,6 +15,20 @@ const Editable = ({
         <Form.Group controlId="formBasicEmail">
           <Form.Control
             className="text-center"
+            type="number"
+            name="priority"
+            size="sm"
+            required
+            placeholder="Enter the priority..."
+            value={editFormData.priority}
+            onChange={handleEditFormChange}
+          />
+        </Form.Group>
+      </td>
+      <td>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Control
+            className="text-center"
             type="text"
             name="fullName"
             size="sm"
