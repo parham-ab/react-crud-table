@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 // bootstrap
 import { Table, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -12,6 +12,11 @@ import jsonData from "../mock-data.json";
 
 const ReactForm = () => {
   const [data, setData] = useState(jsonData);
+  // refs
+  const nameVal = useRef();
+  const emailVal = useRef();
+  const phoneNoVal = useRef();
+  const addressVal = useRef();
   // states
   const [addFormData, setAddFormData] = useState({
     fullName: "",
@@ -19,6 +24,12 @@ const ReactForm = () => {
     phoneNo: "",
     email: "",
   });
+  const [inputRefs, setInputRefs] = useState([
+    nameVal,
+    emailVal,
+    phoneNoVal,
+    addressVal,
+  ]);
   // onChange handler of add new data
   const addFormHandle = (e) => {
     setAddFormData({ ...addFormData, [e.target.name]: e.target.value });
@@ -35,6 +46,10 @@ const ReactForm = () => {
     };
     const newVal = [...data, enteredData];
     setData(newVal);
+    // clear inputs after submission
+    inputRefs.forEach((item) => {
+      item.current.value = "";
+    });
   };
 
   return (
@@ -83,8 +98,8 @@ const ReactForm = () => {
               name="fullName"
               required
               placeholder="Enter the name..."
-              value={addFormData.fullName}
               onChange={addFormHandle}
+              ref={nameVal}
             />
             <Form.Control
               className="m-1"
@@ -92,8 +107,8 @@ const ReactForm = () => {
               name="email"
               required
               placeholder="Enter the email..."
-              value={addFormData.email}
               onChange={addFormHandle}
+              ref={emailVal}
             />
             <Form.Control
               className="m-1"
@@ -101,8 +116,8 @@ const ReactForm = () => {
               name="phoneNo"
               required
               placeholder="Enter the phoneNo..."
-              value={addFormData.phoneNo}
               onChange={addFormHandle}
+              ref={phoneNoVal}
             />
             <Form.Control
               className="m-1"
@@ -110,8 +125,8 @@ const ReactForm = () => {
               name="address"
               required
               placeholder="Enter the address..."
-              value={addFormData.address}
               onChange={addFormHandle}
+              ref={addressVal}
             />
           </Form.Group>
           <Button type="submit" size="sm" className="m-1">
