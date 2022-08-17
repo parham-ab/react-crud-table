@@ -1,12 +1,17 @@
 // bootstrap
+import { useState } from "react";
 import { Table } from "react-bootstrap";
 // icons
 import { FiEdit2 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
+// fake data
+import jsonData from "../mock-data.json";
 
 const ReactForm = () => {
+  const [data, setData] = useState(jsonData);
+
   return (
-    <div>
+    <>
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead className="text-center">
           <tr>
@@ -19,69 +24,26 @@ const ReactForm = () => {
           </tr>
         </thead>
         <tbody className="text-center">
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <span className="text-warning">
-                <FiEdit2 />
-              </span>
-              <span className="text-danger">
-                <TiDeleteOutline />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>
-              <span className="text-warning">
-                <FiEdit2 />
-              </span>
-              <span className="text-danger">
-                <TiDeleteOutline />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Larry the Bird</td>
-            <td>Thornton</td>
-            <td>Thornton</td>
-            <td>@twitter</td>
-            <td>
-              <span className="text-warning">
-                <FiEdit2 />
-              </span>
-              <span className="text-danger">
-                <TiDeleteOutline />
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry the Bird</td>
-            <td>Thornton</td>
-            <td>Thornton</td>
-            <td>@twitter</td>
-            <td>
-              <span className="text-warning">
-                <FiEdit2 />
-              </span>
-              <span className="text-danger">
-                <TiDeleteOutline />
-              </span>
-            </td>
-          </tr>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.priority}</td>
+              <td>{item.name}</td>
+              <td>{item.address}</td>
+              <td>{item.phoneNo}</td>
+              <td>{item.email}</td>
+              <td>
+                <span className="text-warning">
+                  <FiEdit2 />
+                </span>
+                <span className="text-danger">
+                  <TiDeleteOutline />
+                </span>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
-    </div>
+    </>
   );
 };
 
