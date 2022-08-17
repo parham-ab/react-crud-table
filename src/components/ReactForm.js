@@ -1,6 +1,8 @@
-// bootstrap
 import { useState } from "react";
-import { Table } from "react-bootstrap";
+// bootstrap
+import { Table, Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+
 // icons
 import { FiEdit2 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -43,6 +45,47 @@ const ReactForm = () => {
           ))}
         </tbody>
       </Table>
+
+      <form
+        // onSubmit={handleAddFormSubmit}
+        className="d-flex justify-content-center"
+      >
+        <div className="mt-5">
+          <Form.Group controlId="formBasicEmail">
+            <Form.Control
+              className="m-1"
+              type="text"
+              name="fullName"
+              required
+              placeholder="Enter the name..."
+            />
+            <Form.Control
+              className="m-1"
+              type="text"
+              name="email"
+              required
+              placeholder="Enter the email..."
+            />
+            <Form.Control
+              className="m-1"
+              type="text"
+              name="phoneNo"
+              required
+              placeholder="Enter the phoneNo..."
+            />
+            <Form.Control
+              className="m-1"
+              type="text"
+              name="address"
+              required
+              placeholder="Enter the address..."
+            />
+          </Form.Group>
+          <Button type="submit" size="sm" className="m-1">
+            Submit
+          </Button>
+        </div>
+      </form>
     </>
   );
 };
