@@ -17,7 +17,7 @@ body {
   font-family: "Quicksand", sans-serif;
   font-family: "Rubik", sans-serif;
 }
-// bootstrap outline
+// bootstrap
 textarea:hover,
 textarea:active,
 textarea:focus,
@@ -37,6 +37,7 @@ label:focus,
   -webkit-appearance: none;
   box-shadow: none !important;
 }
+@import "~bootstrap/scss/bootstrap";
 // scroll bar
 ::-webkit-scrollbar {
   width: 9px;
@@ -53,4 +54,8 @@ label:focus,
 }
 ::-webkit-scrollbar-thumb:active {
   background-color: rgb(207, 207, 207);
+}
+svg {
+  font-size: 25px;
+  cursor: pointer;
 }
