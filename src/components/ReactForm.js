@@ -63,8 +63,7 @@ const ReactForm = () => {
     };
     const newData = [...data, newContact];
     setData(newData);
-    const newVal = [...data, newContact];
-    setData(newVal);
+    localStorage.setItem("crud-table-data", JSON.stringify(newData));
     // clear inputs
     refVals.forEach((items) => {
       items.current.value = "";
@@ -85,13 +84,13 @@ const ReactForm = () => {
     const index = data.findIndex((item) => item.id === editDataId);
     newData[index] = editedData;
     setData(newData);
+    localStorage.setItem("crud-table-data", JSON.stringify(newData));
     setEditDataId(null);
   };
   // edit button
   const handleEditClick = (e, data) => {
     e.preventDefault();
     setEditDataId(data.id);
-
     const formValues = {
       priority: data.priority,
       fullName: data.fullName,
@@ -111,12 +110,15 @@ const ReactForm = () => {
     const index = data.findIndex((contact) => contact.id === contactId);
     newData.splice(index, 1);
     setData(newData);
-    // localStorage.setItem('crud-table-data',)
+    localStorage.setItem("crud-table-data", JSON.stringify(newData));
   };
-  // log data per each change
+  // load data from localStorage per each change
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    const savedData = localStorage.getItem("crud-table-data");
+    const parsedData = JSON.parse(savedData);
+    console.log(parsedData);
+    setData(parsedData);
+  }, []);
 
   return (
     <>
@@ -167,7 +169,7 @@ const ReactForm = () => {
               type="number"
               name="priority"
               required
-              placeholder="Enter the Priority..."
+              placeholder="Enter the priority..."
               onChange={handleAddFormChange}
               ref={priorityVal}
             />
