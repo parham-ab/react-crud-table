@@ -1,5 +1,5 @@
 // icons
-import { MdDelete } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 
 const ReadOnly = ({ data, handleEditClick, handleDeleteClick }) => {
@@ -23,7 +23,7 @@ const ReadOnly = ({ data, handleEditClick, handleDeleteClick }) => {
           onClick={() => handleDeleteClick(data.id)}
           className="text-danger"
         >
-          <MdDelete />
+          <FaRegTrashAlt />
         </span>
       </td>
     </tr>
