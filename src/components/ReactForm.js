@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 // bootstrap
 import { Table, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -8,9 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 import jsonData from "../mock-data.json";
 // components
 import ReadOnly from "./ReadOnly";
+import Editable from "./Editable";
 
 const ReactForm = () => {
   const [data, setData] = useState(jsonData);
+  const [editData, setEditData] = useState(null);
   // refs
   const nameVal = useRef();
   const emailVal = useRef();
@@ -50,26 +52,40 @@ const ReactForm = () => {
       item.current.value = "";
     });
   };
+  // edit click handle
+  const editClickHandle = (e, data) => {
+    console.log(data);
+    // e.preventDefault();
+    setEditData(data.id);
+  };
 
   return (
     <>
-      <Table striped bordered hover variant="dark" size="sm" responsive>
-        <thead className="text-center">
-          <tr>
-            {/* <th width="1">Priority</th> */}
-            <th>Name</th>
-            <th>Email</th>
-            <th>PhoneNo</th>
-            <th>Address</th>
-            <th width="1">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {data.map((item) => (
-            <ReadOnly key={item.id} data={item} />
-          ))}
-        </tbody>
-      </Table>
+      <form>
+        <Table striped bordered hover variant="dark" size="sm" responsive>
+          <thead className="text-center">
+            <tr>
+              {/* <th width="1">Priority</th> */}
+              <th>Name</th>
+              <th>Email</th>
+              <th>PhoneNo</th>
+              <th>Address</th>
+              <th width="1">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {data.map((item) => (
+              <React.Fragment key={item.id}>
+                {editData === item.id ? (
+                  <Editable />
+                ) : (
+                  <ReadOnly data={item} editClickHandle={editClickHandle} />
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </Table>
+      </form>
       {/* Add new data */}
       <form
         onSubmit={handleAddFormSubmit}
