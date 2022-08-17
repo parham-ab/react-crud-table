@@ -7,15 +7,15 @@ import { TiDeleteOutline } from "react-icons/ti";
 const ReactForm = () => {
   return (
     <div>
-      <Table striped bordered hover variant="dark" size="sm">
+      <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead className="text-center">
           <tr>
-            <th>Priority</th>
+            <th width="1">Priority</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone Number</th>
             <th>Email</th>
-            <th>Actions</th>
+            <th width="1">Actions</th>
           </tr>
         </thead>
         <tbody className="text-center">
