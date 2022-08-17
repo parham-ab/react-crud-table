@@ -2,7 +2,8 @@ import { useState } from "react";
 // bootstrap
 import { Table, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-
+// uuid
+import { v4 as uuidv4 } from "uuid";
 // icons
 import { FiEdit2 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -25,7 +26,15 @@ const ReactForm = () => {
   // submit handler of adding new data
   const handleAddFormSubmit = (e) => {
     e.preventDefault();
-    console.log(addFormData);
+    const enteredData = {
+      id: uuidv4(),
+      fullName: addFormData.fullName,
+      address: addFormData.address,
+      phoneNo: addFormData.phoneNo,
+      email: addFormData.email,
+    };
+    const newVal = [...data, enteredData];
+    setData(newVal);
   };
 
   return (
@@ -33,7 +42,7 @@ const ReactForm = () => {
       <Table striped bordered hover variant="dark" size="sm" responsive>
         <thead className="text-center">
           <tr>
-            <th width="1">Priority</th>
+            {/* <th width="1">Priority</th> */}
             <th>Name</th>
             <th>Email</th>
             <th>PhoneNo</th>
@@ -44,8 +53,8 @@ const ReactForm = () => {
         <tbody className="text-center">
           {data.map((item) => (
             <tr key={item.id}>
-              <td>{item.priority}</td>
-              <td>{item.name}</td>
+              {/* <td>{item.priority}</td> */}
+              <td>{item.fullName}</td>
               <td>{item.email}</td>
               <td>{item.phoneNo}</td>
               <td>{item.address}</td>

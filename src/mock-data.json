@@ -1,58 +1,23 @@
 [
   {
     "id": 1,
-    "priority": 1,
-    "name": "asdas",
-    "address": "asd",
-    "phoneNo": 123,
-    "email": "@mdo"
+    "fullName": "parham",
+    "address": "wedfdsf",
+    "phoneNo": "wet25",
+    "email": "@werwer"
   },
   {
     "id": 2,
-    "priority": 2,
-    "name": "asd",
-    "address": "asd",
-    "phoneNo": 123,
-    "email": "@mdo"
+    "fullName": "zxhhf",
+    "address": "dzdwas",
+    "phoneNo": "6886",
+    "email": "@popo"
   },
   {
     "id": 3,
-    "priority": 3,
-    "name": "wetreh",
-    "address": "wetreh",
-    "phoneNo": 123,
-    "email": "@mdo"
-  },
-  {
-    "id": 4,
-    "priority": 4,
-    "name": "wetreh",
-    "address": "wetreh",
-    "phoneNo": 123,
-    "email": "@mdo"
-  },
-  {
-    "id": 5,
-    "priority": 5,
-    "name": "wetreh",
-    "address": "wetreh",
-    "phoneNo": 123,
-    "email": "@mdo"
-  },
-  {
-    "id": 6,
-    "priority": 6,
-    "name": "wetreh",
-    "address": "wetreh",
-    "phoneNo": 123,
-    "email": "@mdo"
-  },
-  {
-    "id": 7,
-    "priority": 7,
-    "name": "wetreh",
-    "address": "wetreh",
-    "phoneNo": 123,
-    "email": "@mdo"
+    "fullName": "arewghf",
+    "address": "pport",
+    "phoneNo": "47979",
+    "email": "ettee"
   }
 ]
