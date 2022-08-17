@@ -1,11 +1,8 @@
-import React from 'react';
+// components
+import ReactForm from "./components/ReactForm";
 
 const App = () => {
-  return (
-    <div>
-      
-    </div>
-  );
+  return <ReactForm />;
 };
 
 export default App;
