@@ -116,7 +116,7 @@ const ReactForm = () => {
   useEffect(() => {
     const savedData = localStorage.getItem("crud-table-data");
     const parsedData = JSON.parse(savedData);
-    setData(parsedData);
+    parsedData !== null && setData(parsedData);
   }, []);
   // reorder tables based on priority
   const [reorderedData, setReOrderedData] = useState([]);
@@ -128,7 +128,7 @@ const ReactForm = () => {
   return (
     <>
       <form onSubmit={handleEditFormSubmit}>
-        {data.length > 0 && (
+        {reorderedData.length > 0 && (
           <Table striped bordered hover variant="dark" responsive>
             <thead>
               <tr className="text-center">
